@@ -188,10 +188,24 @@ def generar_recibo():
 
 def guardar_recibo():
     info_recibo = texto_recibo.get(1.0,END)
-    archivo = filedialog.asksaveasfile(mode="w",defaultextension=".txt")
-    archivo.write(info_recibo)
-    archivo.close()
-    messagebox.showinfo("Informacion","Su recibo ha sido guardado")
+
+    fecha = datetime.datetime.now()
+    nombre_sugerido = f"Recibo_{fecha.year}-{fecha.month:02d}-{fecha.day:02d}_-{fecha.hour:02d}-{fecha.minute:02d}.txt"
+    archivo = filedialog.asksaveasfile(
+        mode="w",
+        defaultextension=".txt",
+        initialfile=nombre_sugerido,
+        title="Guardar recibo como...",
+        filetypes=[("Archivo de texto", "*.txt"), ("Todos los archivos", "*.*")]
+    )
+
+    if archivo:
+        archivo.write(info_recibo)
+        archivo.close()
+        messagebox.showinfo("información",f"El recibo fue guardado como:\n{nombre_sugerido}")
+    else:
+        messagebox.showinfo("Cancelado", f"No se guardó ningun archivo como :\n{nombre_sugerido}")
+
 
 def limpiar_pantalla():
     texto_recibo.delete(0.1,END)
@@ -744,8 +758,8 @@ botones_guardados[15].config(command=lambda : click_boton('/'))
 aplicacion.update_idletasks()
 w = aplicacion.winfo_reqwidth()
 h = aplicacion.winfo_reqheight()
-aplicacion.minsize(w, h)                  # evita que se haga más pequeña de lo que necesita
-aplicacion.geometry(f"{w}x{h}+0+0")       # arranca con el tamaño justo
+aplicacion.minsize(w, h)                  
+aplicacion.geometry(f"{w}x{h}+0+0")      
 
 
 aplicacion.mainloop()
