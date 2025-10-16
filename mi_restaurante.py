@@ -7,7 +7,6 @@ from tkinter import *
 import random, datetime
 from tkinter import filedialog, messagebox
 from itertools import chain
-from time import time as t
 
 nombre_restaurante = "Stack de Sabor"
 operador = ''
