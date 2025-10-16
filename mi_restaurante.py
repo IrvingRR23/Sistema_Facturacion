@@ -189,7 +189,7 @@ def guardar_recibo():
     info_recibo = texto_recibo.get(1.0,END)
 
     fecha = datetime.datetime.now()
-    nombre_sugerido = f"Recibo_{fecha.year}-{fecha.month:02d}-{fecha.day:02d}_-{fecha.hour:02d}-{fecha.minute:02d}.txt"
+    nombre_sugerido = f"Recibo_{fecha.year}-{fecha.month:02d}-{fecha.day:02d}_Hora-{fecha.hour:02d}-{fecha.minute:02d}.txt"
     archivo = filedialog.asksaveasfile(
         mode="w",
         defaultextension=".txt",
