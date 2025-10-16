@@ -3,7 +3,7 @@ from tkinter import messagebox
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from database.database import DatabaseConnection
-import sistema_facturacion
+import Sistema_Funcional.app.sistema_facturacion as sistema_facturacion
 
 class LoginApp:
     def __init__(self,root):
