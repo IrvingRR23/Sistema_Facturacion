@@ -47,7 +47,8 @@ class SistemaFacturacion:
         self.construir_interfaz()
 
     def construir_interfaz(self):
-                # Panel principal (layout de 2 filas y 2 columnas)
+
+        # Panel principal (layout de 2 filas y 2 columnas)
         self.panel_principal = Frame(self.root, bg="#f5f5f5")
         self.panel_principal.pack(fill="both", expand=True)
 
@@ -55,6 +56,24 @@ class SistemaFacturacion:
         self.panel_principal.columnconfigure(1, weight=4)
         self.panel_principal.rowconfigure(0, weight=4)
         self.panel_principal.rowconfigure(1, weight=1)
+
+        # 🌟 Panel superior (Título del sistema)
+        self.panel_superior = Frame(self.root, bg="#1f2a44", height=80)
+        self.panel_superior.pack(side="top", fill="x")
+
+        self.etiqueta_titulo = Label(
+            self.panel_superior,
+            text=f"{self.nombre_restaurante} - Sistema de Facturación",
+            fg="white",
+            font=("Times New Roman", 36, "bold"),
+            bg="#1f2a44",
+            pady=10
+        )
+        self.etiqueta_titulo.pack(fill="x")
+
+        # --- Aquí continúa tu código actual ---
+        self.panel_principal = Frame(self.root, bg="#f5f5f5")
+        self.panel_principal.pack(fill="both", expand=True)
 
         # Panel superior izquierdo (productos)
         self.panel_izquierdo = Frame(self.panel_principal, bg="#f5f5f5")
