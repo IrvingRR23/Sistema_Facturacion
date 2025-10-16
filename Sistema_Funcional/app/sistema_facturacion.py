@@ -50,15 +50,6 @@ class SistemaFacturacion:
 
     def construir_interfaz(self):
 
-        # Panel principal (layout de 2 filas y 2 columnas)
-        self.panel_principal = Frame(self.root, bg="#f5f5f5")
-        self.panel_principal.pack(fill="both", expand=True)
-
-        self.panel_principal.columnconfigure(0, weight=3)
-        self.panel_principal.columnconfigure(1, weight=4)
-        self.panel_principal.rowconfigure(0, weight=4)
-        self.panel_principal.rowconfigure(1, weight=1)
-
         # 🌟 Panel superior (Título del sistema)
         self.panel_superior = Frame(self.root, bg="#1f2a44", height=80)
         self.panel_superior.pack(side="top", fill="x")
@@ -67,27 +58,34 @@ class SistemaFacturacion:
             self.panel_superior,
             text=f"{self.nombre_restaurante} - Sistema de Facturación",
             fg="white",
-            font=("Times New Roman", 36, "bold"),
+            font=("Times New Roman", 32, "bold"),
             bg="#1f2a44",
             pady=10
         )
         self.etiqueta_titulo.pack(fill="x")
 
-        # Panel superior izquierdo (productos)
+        # Panel principal debajo del título
+        self.panel_principal = Frame(self.root, bg="#f5f5f5")
+        self.panel_principal.pack(fill="both", expand=True)
+
+        self.panel_principal.columnconfigure(0, weight=3)
+        self.panel_principal.columnconfigure(1, weight=4)
+        self.panel_principal.rowconfigure(0, weight=4)
+        self.panel_principal.rowconfigure(1, weight=1)
+
+        # Panel izquierdo, derecho e inferior
         self.panel_izquierdo = Frame(self.panel_principal, bg="#f5f5f5")
         self.panel_izquierdo.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
 
-        # Panel derecho (calculadora + recibo)
         self.panel_derecha = Frame(self.panel_principal, bg="#f5f5f5")
         self.panel_derecha.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
 
-        # Panel inferior (costos + botones)
         self.panel_inferior = Frame(self.panel_principal, bg="#f5f5f5")
         self.panel_inferior.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=5, pady=5)
         self.panel_inferior.columnconfigure(0, weight=3)
         self.panel_inferior.columnconfigure(1, weight=2)
 
-        # Subpanel de comidas
+        # Subpaneles
         self.crear_panel_comidas()
         self.crear_panel_bebidas()
         self.crear_panel_postres()
@@ -95,6 +93,7 @@ class SistemaFacturacion:
         self.crear_panel_calculadora()
         self.crear_panel_recibo()
         self.crear_panel_botones()
+
 
     def crear_panel_comidas(self):
         # Panel de comidas
@@ -729,6 +728,8 @@ class SistemaFacturacion:
     def abrir_crud_productos(self):
         nueva_ventana = Toplevel(self.root)
         CRUDProductos(nueva_ventana)
+        nueva_ventana.grab_set()       # bloquea interacción con la ventana principal hasta cerrar el CRUD
+        nueva_ventana.focus_force() 
 
 
 if __name__ == "__main__":
