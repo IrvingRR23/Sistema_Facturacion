@@ -1,6 +1,7 @@
 import datetime, random
 from tkinter import *
 from tkinter import messagebox, filedialog
+from app.crud_productos import CRUDProductos
 
 class SistemaFacturacion:
 
@@ -12,6 +13,7 @@ class SistemaFacturacion:
 
         self.nombre_restaurante = "Stack de Sabor"
         self.operador = ""
+        self.rol_usuario = "admin"
 
         # Precios de productos
         self.precios_comidas = [120, 85, 25, 70, 45, 75, 35, 30]
@@ -70,10 +72,6 @@ class SistemaFacturacion:
             pady=10
         )
         self.etiqueta_titulo.pack(fill="x")
-
-        # --- Aquí continúa tu código actual ---
-        self.panel_principal = Frame(self.root, bg="#f5f5f5")
-        self.panel_principal.pack(fill="both", expand=True)
 
         # Panel superior izquierdo (productos)
         self.panel_izquierdo = Frame(self.panel_principal, bg="#f5f5f5")
@@ -502,6 +500,25 @@ class SistemaFacturacion:
             # Ajustar proporción de columnas
             self.panel_botones.grid_columnconfigure(i, weight=1)
 
+        # Botón visible solo para administradores
+        if self.rol_usuario == "admin":
+            boton_admin = Button(
+                self.panel_botones,
+                text="Administrar Productos",
+                font=("Times New Roman", 13, "bold"),
+                bg="#34495e",
+                fg="white",
+                activebackground="#1f2a44",
+                activeforeground="white",
+                bd=0,
+                relief="flat",
+                padx=20,
+                pady=10,
+                cursor="hand2",
+                command=self.abrir_crud_productos
+            )
+            boton_admin.grid(row=1, column=0, columnspan=4, padx=8, pady=8, sticky="ew")
+            
     def calcular_total(self):
         # comidas
         sub_total_comida = 0.0
@@ -708,6 +725,11 @@ class SistemaFacturacion:
         else:
             entry.config(state='disabled')
             txt.set('0')
+
+    def abrir_crud_productos(self):
+        nueva_ventana = Toplevel(self.root)
+        CRUDProductos(nueva_ventana)
+
 
 if __name__ == "__main__":
     root = Tk()

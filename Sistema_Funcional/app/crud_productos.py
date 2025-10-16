@@ -47,7 +47,7 @@ class CRUDProductos:
         boton_frame = tk.Frame(self.root, bg="#f5f5f5")
         boton_frame.place(x=20, y=200, width=660, height=50)
 
-        tk.Button(boton_frame, text="Agregar", bg="#1f2a44", fg="white", font=("Times New Roman", 12, "bold"), width=12, command=self.agregar_producto).grid(row=0, column=0, padx=5)
+        tk.Button(boton_frame, text="Agregar", bg="#1f2a44", fg="white", font=("Times New Roman", 12, "bold"), width=12, command=self.agregar_productos).grid(row=0, column=0, padx=5)
         tk.Button(boton_frame, text="Editar", bg="#1f2a44", fg="white", font=("Times New Roman", 12, "bold"), width=12, command=self.editar_producto).grid(row=0, column=1, padx=5)
         tk.Button(boton_frame, text="Eliminar", bg="#8b1d2c", fg="white", font=("Times New Roman", 12, "bold"), width=12, command=self.eliminar_producto).grid(row=0, column=2, padx=5)
         tk.Button(boton_frame, text="Refrescar", bg="#34495e", fg="white", font=("Times New Roman", 12, "bold"), width=12, command=self.mostrar_productos).grid(row=0, column=3, padx=5)
@@ -80,8 +80,8 @@ class CRUDProductos:
     
     def agregar_productos(self):
         nombre = self.var_nombre.get().strip()
-        categoria = self.var_categoria.get.strip()
-        precio = self.var_precio.get.strip()
+        categoria = self.var_categoria.get().strip()
+        precio = self.var_precio.get().strip()
 
         if not nombre or not categoria or not precio:
             messagebox.showwarning("Campos vacíos", "Por favor completa todos los campos.")
@@ -93,7 +93,7 @@ class CRUDProductos:
             messagebox.showerror("Error", "El precio debe ser un número válido.")
             return
         
-        query = "INSERT TO productos (nombre, categoria, precio) VALUES (%s, %s, %s)"
+        query = "INSERT INTO productos (nombre, categoria, precio) VALUES (%s, %s, %s)"
         if self.db.ejecutar_consulta(query, (nombre, categoria, precio)):
             messagebox.showinfo("Éxito","Producto agregado correctamente.")
             self.mostrar_productos()
